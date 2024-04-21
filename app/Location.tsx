@@ -29,7 +29,6 @@ export default function CounterScreen() {
   const getData = async () => {
     const currentLocation =  await Location.getCurrentPositionAsync()
     const { latitude, longitude } = currentLocation.coords
-    console.log('jgjgjg', longitude, latitude)
     try {
       const { data } = await Axios.get(
         `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=grocery&location=${latitude},${longitude}&radius=5&key=${key}`);
