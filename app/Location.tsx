@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 
 import Card from '../components/Card';
+import Map from './Map';
 
 export default function CounterScreen() {
   const [stores, setStores] = useState<object[]>();
@@ -44,6 +45,7 @@ export default function CounterScreen() {
       <Text>{errorMsg}</Text>
     ) : (
       <View>
+         <Map/>
         <FlatList
           data={stores}
           keyExtractor={(item, index) => `${index}`}
@@ -54,6 +56,7 @@ export default function CounterScreen() {
             </View>
           }
         />
+       
         <Button onPress={getData} title='Get nearyby grocery names' />
       </View>
     );
