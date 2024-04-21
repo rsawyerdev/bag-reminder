@@ -9,6 +9,12 @@ import Map from './Map';
 export default function CounterScreen() {
   const [stores, setStores] = useState<object[]>();
   const [errorMsg, setErrorMsg] = useState<string>();
+  const [region, setRegion] = useState<object>({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0,
+    longitudeDelta: 0,
+  });
 
   const [locationPermission, requestLocationPermission] =
     Location.useForegroundPermissions();
@@ -28,11 +34,18 @@ export default function CounterScreen() {
   const key = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
   const getData = async () => {
-    const currentLocation =  await Location.getCurrentPositionAsync()
-    const { latitude, longitude } = currentLocation.coords
+    const currentLocation = await Location.getCurrentPositionAsync();
+    const { latitude, longitude } = currentLocation.coords;
+    setRegion({
+      latitude: latitude,
+      longitude: longitude,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    });
     try {
       const { data } = await Axios.get(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=grocery&location=${latitude},${longitude}&radius=5&key=${key}`);
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=grocery&location=${latitude},${longitude}&radius=5&key=${key}`
+      );
       setStores(data.results);
     } catch (error: any) {
       setErrorMsg('Oops something went wrong.  Try again.');
@@ -45,18 +58,20 @@ export default function CounterScreen() {
       <Text>{errorMsg}</Text>
     ) : (
       <View>
-         <Map/>
+        <Map region={region} />
         <FlatList
           data={stores}
           keyExtractor={(item, index) => `${index}`}
           renderItem={_renderItem}
           ListHeaderComponent={
             <View style={{ padding: 20 }}>
-              <Text style={{ fontSize: 30 }}>Grocery Stores nearby</Text>
+              <Text style={{ fontSize: 30, color: '#101518' }}>
+                Grocery Stores nearby
+              </Text>
             </View>
           }
         />
-       
+
         <Button onPress={getData} title='Get nearyby grocery names' />
       </View>
     );
