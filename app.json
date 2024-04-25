@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b3bfc5c7-71f3-43ae-bac3-a83664c864bc"
+      }
+    },
+    "owner": "foodtracker",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/b3bfc5c7-71f3-43ae-bac3-a83664c864bc"
     }
   }
 }
