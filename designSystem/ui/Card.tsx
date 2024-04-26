@@ -1,16 +1,15 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import { StyleSheet, View, Text, ViewStyle } from 'react-native';
 import React from 'react';
 
-export default function ItemCard(props: any) {
+interface CardProps {
+  name: string;
+  containerStyle: ViewStyle;
+}
 
+export default function Card({ name, containerStyle }: CardProps) {
   return (
-    <View style={[styles.container, props.containerStyle]}>
-
-        <Text style={styles.title}>{props.name}</Text>
+    <View style={[styles.container, containerStyle]}>
+      <Text style={styles.title}>{name}</Text>
     </View>
   );
 }
