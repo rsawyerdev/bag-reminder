@@ -3,13 +3,14 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 
-import Card from '../components/Card';
+import Card from '../designSystem/ui/Card';
 import Map from './Map';
+import { Region } from 'react-native-maps';
 
 export default function CounterScreen() {
   const [stores, setStores] = useState<object[]>();
   const [errorMsg, setErrorMsg] = useState<string>();
-  const [region, setRegion] = useState<object>({
+  const [region, setRegion] = useState<Region>({
     latitude: 0,
     longitude: 0,
     latitudeDelta: 0,

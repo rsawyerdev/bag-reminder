@@ -1,10 +1,12 @@
 import React, { StyleSheet, View, Text } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Region } from 'react-native-maps';
 
-export default function Map(props) {
+interface MapProps {
+  region: Region;
+};
+export default function Map({ region }: MapProps) {
+  const emptyRegion = region.latitude == 0;
 
-  const emptyRegion = props.region.latitude == 0;
-  
   return (
     <View style={styles.container}>
       {emptyRegion ? (
@@ -12,7 +14,7 @@ export default function Map(props) {
           <Text style={styles.emptyText}>Don't forget your bag</Text>
         </View>
       ) : (
-        <MapView style={styles.map} region={props.region} />
+        <MapView style={styles.map} region={region} />
       )}
     </View>
   );
@@ -26,11 +28,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   emptyText: {
     fontSize: 20,
-    color: '#101518'
+    color: '#101518',
   },
   map: {
     width: '100%',
